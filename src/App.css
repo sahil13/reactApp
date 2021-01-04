@@ -1,0 +1,73 @@
+.app{
+  margin: 10px;
+  width:300px;
+}
+
+.git-hub-users:first-child{
+  border-top: 3px solid #e1e1e1;
+}
+.git-hub-users{
+  border-bottom: 3px solid #e1e1e1;
+  padding: 5px 0;
+}
+.git-hub-users >img {
+  height:80px;
+}
+.git-hub-users >span {
+  vertical-align: top;
+  margin-left:7px;
+  text-transform: capitalize;
+} 
+
+button{
+  margin-left:5px;
+}
+.m-t-10{
+  margin-top:10px;
+}
+
+.user-form label{
+  display:block;
+}
+.user-form input[type="text"]{
+  border-width:1px;
+  border-radius:4px;
+}
+
+
+
+/* .App-logo {
+  height: 40vmin;
+  pointer-events: none;
+} */
+
+
+/* 
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #000;
+}
+
+.App-link {
+  color: #000;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
