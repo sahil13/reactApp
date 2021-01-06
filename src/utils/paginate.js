@@ -4,5 +4,5 @@ export function paginate(allMovies, pageNumber, pageSize) {
   
   const startIndex = (pageNumber - 1) * pageSize;
 
-  return _(allMovies).slice(startIndex).take(2).value();
+  return _(allMovies).slice(startIndex).take(4).value();
 }

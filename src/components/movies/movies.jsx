@@ -5,12 +5,12 @@ import MovieList from "./movieList";
 import { paginate } from "../../utils/paginate";
 import ListGroup from "../../common/listGroup";
 import { NavLink } from "react-router-dom";
-import { getMovies } from "../../services/fakeMovieService";
+import { getMovies } from "../../services/MovieService";
 
 class Movie extends Component {
   searchElement = React.createRef();
   state = {
-    movies: {},
+    movies: [],
     pageNumber: 1,
     selectedGenre: "",
     searchQuery: ""
@@ -21,9 +21,10 @@ class Movie extends Component {
     this.setState({ searchQuery: movieName });
   };
 
-  componentDidMount() {
-    const movies = getMovies();
-    this.setState({ movies: movies });
+  async componentDidMount() {
+    const { data } = await getMovies();
+    // console.log(data);return;
+    this.setState({ movies: data });
   }
 
   handleLike = movie1 => {
@@ -38,7 +39,7 @@ class Movie extends Component {
   };
 
   handleDelete = id => {
-    const newMoviesArr = this.state.movies.filter(movie => movie.id !== id);
+    const newMoviesArr = this.state.movies.filter(movie => movie._id !== id);
     this.setState({ movies: newMoviesArr });
   };
 
@@ -66,11 +67,11 @@ class Movie extends Component {
       ? allMovies.filter(movies => movies.genre === selectedGenre)
       : allMovies;
 
-    const pageSize = 2;
+    const pageSize = 4;
 
     var paginateMovies = paginate(filtered, pageNumber, pageSize);
     if (searchQuery) {
-      paginateMovies=allMovies.filter(m => {
+      paginateMovies = allMovies.filter(m => {
         return searchQuery
           ? m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
           : this.state.movies;
@@ -92,7 +93,7 @@ class Movie extends Component {
           <div className="col-md-9 m-2">
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               name="searchQuery"
               value={this.state.searchQuery}
               onChange={e => this.filterList(e.currentTarget.value)}

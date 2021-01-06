@@ -25,23 +25,23 @@ class MovieList extends Component {
           <tbody>
             {this.props.movies.map(movie => {
               return (
-                <tr key={movie.id}>
+                <tr key={movie._id}>
                   <td>
-                    <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
+                    <Link to={`/movie/${movie._id}`}>{movie.title}</Link>
                   </td>
-                  <td>{movie.genre}</td>
-                  <td>{movie.stock}</td>
-                  <td>{movie.rate}</td>
+                  <td>{movie.genre.name}</td>
+                  <td>{movie.numberInStock}</td>
+                  <td>{movie.dailyRentalRate}</td>
                   <td>
-                    <Like
+                    {/* <Like
                       liked={movie.liked}
                       onMovieLiked={this.props.onMovieLiked}
                       movie={movie}
-                    />
+                    /> */}
                   </td>
                   <td>
                     <button
-                      onClick={() => this.props.onDelete(movie.id)}
+                      onClick={() => this.props.onDelete(movie._id)}
                       className="btn btn-danger"
                     >
                       Delete

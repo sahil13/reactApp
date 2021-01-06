@@ -5,11 +5,11 @@ class NotFound extends Component {
   render() {
     return (
       <React.Fragment>
-        <div class="col-md-12">Not Found</div>
-        <div class="col-md-12">
+        <div className="col-md-12">Not Found</div>
+        <div className="col-md-12">
         <button
           onClick={() => this.props.history.push("/movies")}
-          class="btn btn-primary btn-sm"
+          className="btn btn-primary btn-sm"
         >
           Back
         </button>
