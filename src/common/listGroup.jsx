@@ -5,7 +5,7 @@ class ListGroup extends Component {
   render() {
     return (
       <ul className="list-group m-2">
-        <li className="list-group-item">All Genre</li>
+        <li className="list-group-item" onClick={() => this.props.filterMovies("")}>All Genre</li>
         <li
           className="list-group-item"
           onClick={() => this.props.filterMovies("Action")}

@@ -4,54 +4,27 @@ import _ from "lodash";
 import MovieList from "./movieList";
 import { paginate } from "../../utils/paginate";
 import ListGroup from "../../common/listGroup";
+import { NavLink } from "react-router-dom";
+import { getMovies } from "../../services/fakeMovieService";
 
 class Movie extends Component {
+  searchElement = React.createRef();
   state = {
-    movies: [
-      {
-        id: 1,
-        title: "DDLJ",
-        genre: "Romance",
-        stock: 7,
-        rate: 5,
-        liked: true
-      },
-      {
-        id: 2,
-        title: "Hum Apke hai kon",
-        genre: "Romance",
-        stock: 8,
-        rate: 4,
-        liked: true
-      },
-      {
-        id: 3,
-        title: "DON",
-        genre: "Action",
-        stock: 2,
-        rate: 3.5,
-        liked: false
-      },
-      {
-        id: 4,
-        title: "wanted",
-        genre: "Action",
-        stock: 9,
-        rate: 4,
-        liked: true
-      },
-      {
-        id: 5,
-        title: "BodyGaurd",
-        genre: "Thriller",
-        stock: 8,
-        rate: 5,
-        liked: false
-      }
-    ],
+    movies: {},
     pageNumber: 1,
-    selectedGenre: ""
+    selectedGenre: "",
+    searchQuery: ""
   };
+
+  filterList = movieName => {
+    const { searchQuery } = this.state;
+    this.setState({ searchQuery: movieName });
+  };
+
+  componentDidMount() {
+    const movies = getMovies();
+    this.setState({ movies: movies });
+  }
 
   handleLike = movie1 => {
     const moviesArr = [...this.state.movies];
@@ -77,18 +50,32 @@ class Movie extends Component {
     this.setState({ pageNumber: pageNo });
   };
 
+  /* addMovie = () => {
+    history.push('/customers')
+  }; */
+
   render() {
-    const { movies: allMovies, pageNumber, selectedGenre } = this.state;
+    const {
+      movies: allMovies,
+      pageNumber,
+      selectedGenre,
+      searchQuery
+    } = this.state;
 
     const filtered = selectedGenre
       ? allMovies.filter(movies => movies.genre === selectedGenre)
       : allMovies;
 
-    console.log(pageNumber, "==", filtered);
-
     const pageSize = 2;
 
-    const paginateMovies = paginate(filtered, pageNumber, pageSize);
+    var paginateMovies = paginate(filtered, pageNumber, pageSize);
+    if (searchQuery) {
+      paginateMovies=allMovies.filter(m => {
+        return searchQuery
+          ? m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+          : this.state.movies;
+      });
+    }
 
     return (
       <React.Fragment>
@@ -96,7 +83,22 @@ class Movie extends Component {
           <ListGroup filterMovies={this.filterMovies} />
         </div>
         <div className="col-md-9">
-          
+          <div className="col-md-12">
+            <NavLink to="/movie/new" className="btn btn-primary">
+              Add Movie
+            </NavLink>
+          </div>
+
+          <div className="col-md-9 m-2">
+            <input
+              type="text"
+              class="form-control"
+              name="searchQuery"
+              value={this.state.searchQuery}
+              onChange={e => this.filterList(e.currentTarget.value)}
+            />
+          </div>
+
           <MovieList
             movies={paginateMovies}
             onMovieLiked={this.handleLike}

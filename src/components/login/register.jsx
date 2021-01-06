@@ -12,7 +12,7 @@ class Register extends Form {
   };
   render() {
     return (
-      <div class="col-md-6">
+      <div className="col-md-6">
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("user Name", "username")}
           {this.renderInput("Password", "password", "password")}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Like from "../../common/like";
+import { Link } from "react-router-dom";
 
 class MovieList extends Component {
   render() {
@@ -9,6 +10,7 @@ class MovieList extends Component {
         <div className="m-2">
           showing {this.props.movies.length} in the Database
         </div>
+
         <table className="table table-stripped">
           <thead>
             <tr>
@@ -24,7 +26,9 @@ class MovieList extends Component {
             {this.props.movies.map(movie => {
               return (
                 <tr key={movie.id}>
-                  <td>{movie.title}</td>
+                  <td>
+                    <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
+                  </td>
                   <td>{movie.genre}</td>
                   <td>{movie.stock}</td>
                   <td>{movie.rate}</td>
