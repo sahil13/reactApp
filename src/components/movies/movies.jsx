@@ -23,7 +23,6 @@ class Movie extends Component {
 
   async componentDidMount() {
     const { data } = await getMovies();
-    // console.log(data);return;
     this.setState({ movies: data });
   }
 

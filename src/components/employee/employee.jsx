@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import ListEmployees from "./listEmployee";
 import { getEmployees } from "./employeeService";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import EmployeePagination from "./employeePagination";
 
-class Employee extends Component {
+class Employee extends PureComponent {
   state = {
     employees: [],
     noOfPages: [],
@@ -18,18 +18,19 @@ class Employee extends Component {
     this.setState({ employees });
     const totalRecords = employees.length;
     const noOfRecordsOnAPage = this.state.noOfRecordsOnAPage;
-    const noOfPages = _.floor(totalRecords / noOfRecordsOnAPage);
+    const noOfPages = _.ceil(totalRecords / noOfRecordsOnAPage);
     const arr = _.range(1, noOfPages + 1);
     this.setState({ noOfPages: arr });
+  }
+
+  componentWillUnmount() {
+    console.log("destroyed");
   }
 
   getRecords = (data, pageNo, noOfRecordsOnAPage) => {
     const startIndex = (pageNo - 1) * 2;
 
-    return  _(data)
-      .slice(startIndex)
-      .take(noOfRecordsOnAPage)
-      .value();
+    return _(data).slice(startIndex).take(noOfRecordsOnAPage).value();
 
     // this.setState({ employees: employees1 });
   };
@@ -44,6 +45,13 @@ class Employee extends Component {
       employee => employee.empCode !== emp.empCode
     );
     toast.info("Deleted Successfully");
+
+    const totalRecords = filteredEmployees.length;
+    const noOfRecordsOnAPage = this.state.noOfRecordsOnAPage;
+    const noOfPages = _.ceil(totalRecords / noOfRecordsOnAPage);
+    const arr = _.range(1, noOfPages + 1);
+    this.setState({ noOfPages: arr });
+
     this.setState({ employees: filteredEmployees });
   };
 
@@ -59,12 +67,20 @@ class Employee extends Component {
 
     return (
       <React.Fragment>
-        {pageNo}--
-        <div className="col-md-12">
-          <ListEmployees onDelete={this.handleDelete} data={pagEmployees} />
-        </div>
-        <div className="col-md-12 text-center">
-          <EmployeePagination pages={pages} getLi={this.updatePageNo} />
+        <div className="m-2">
+          <button
+            type="button"
+            className="btn btn-primary btn-sm"
+            onClick={() => this.props.history.push("/add-employee")}
+          >
+            Add Employee
+          </button>
+          <div className="col-md-12">
+            <ListEmployees onDelete={this.handleDelete} data={pagEmployees} />
+          </div>
+          <div className="col-md-12 text-center">
+            <EmployeePagination pages={pages} getLi={this.updatePageNo} />
+          </div>
         </div>
       </React.Fragment>
     );

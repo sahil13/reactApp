@@ -11,7 +11,9 @@ import Posts from "./components/sampleApp/posts";
 import Employee from "./components/employee/employee";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import AddEmployee from './components/employee/addEmployee';
+import SnapShot from './components/snapshot/snapShot';
+import Emoji from "./components/emoji/emoji";
 class DashBoard extends Component {
   render() {
     return (
@@ -30,6 +32,9 @@ class DashBoard extends Component {
           <Route path="/register" component={Register} />
           <Route path="/post" component={Posts} />
           <Route path="/employees" component={Employee} />
+          <Route path="/add-employee" component={AddEmployee} />
+          <Route path="/snap" component={SnapShot} />
+          <Route path="/emoji" component={Emoji} />
         </Switch>
       </React.Fragment>
     );
