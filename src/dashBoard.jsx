@@ -14,6 +14,8 @@ import "react-toastify/dist/ReactToastify.css";
 import AddEmployee from './components/employee/addEmployee';
 import SnapShot from './components/snapshot/snapShot';
 import Emoji from "./components/emoji/emoji";
+import Cart from "./components/shopping/cart";
+import Order from "./components/cart/order";
 class DashBoard extends Component {
   render() {
     return (
@@ -35,6 +37,8 @@ class DashBoard extends Component {
           <Route path="/add-employee" component={AddEmployee} />
           <Route path="/snap" component={SnapShot} />
           <Route path="/emoji" component={Emoji} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/order" component={Order} />
         </Switch>
       </React.Fragment>
     );
